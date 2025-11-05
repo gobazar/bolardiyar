@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bolardiyar বলারদিয়ার - আমাদের গ্রাম</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700&family=Noto+Serif+Bengali:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* ------------------------------------------------ */
+    /* 1. CORE STYLES & VARIABLES                      */
+    /* ------------------------------------------------ */
+    :root {
+        --primary-green: #2f8f4e; /* Darker, primary brand color */
+        --secondary-green: #48b072; /* Lighter accent color */
+        --text-color: #333;
+        --light-bg: #f4f9f4;
+        --card-bg: #ffffff;
+        --shadow-subtle: 0 4px 10px rgba(0,0,0,0.08);
+        --shadow-lift: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Noto Serif Bengali', serif;
+      margin: 0;
+      background: var(--light-bg);
+      color: var(--text-color);
+      line-height: 1.7;
+    }
+    * {
+      box-sizing: border-box;
+    }
+
+    /* --- Header (Hero Section) --- */
+    header {
+      padding: 140px 20px 120px; /* Larger impact area */
+      text-align: center;
+      color: #fff;
+      /* Image and Gradient Overlay */
+      background-image: linear-gradient(rgba(47, 143, 78, 0.75), rgba(72, 176, 114, 0.75)), 
+                        url('images/village_scene.jpg'); /* IMPORTANT: Replace with your image path */
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed; 
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); 
+    }
+    header h1 {
+      margin: 0;
+      font-size: 4.2rem; 
+      letter-spacing: 2px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 255, 255, 0.3); 
+    }
+    header p {
+      margin-top: 15px;
+      font-size: 1.5rem;
+      font-weight: 400;
+      opacity: 1; 
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    /* --- Navigation (Sleek Sticky Bar) --- */
+    nav {
+      font-family: 'Noto Sans Bengali', sans-serif;
+      background: var(--card-bg);
+      padding: 12px 0; /* Adjusted padding */
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* Softer shadow */
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .nav-toggle { display: none; }
+    nav a {
+      color: var(--primary-green);
+      text-decoration: none;
+      margin: 0 16px;
+      font-weight: 600; /* Slightly lighter weight */
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      padding: 8px 12px;
+      border-radius: 8px;
+    }
+    nav a:hover {
+      color: var(--secondary-green);
+      background-color: #f0fdf0; /* Subtle highlight */
+      text-decoration: underline; /* Professional link behavior */
+    }
+
+    /* ------------------------------------------------ */
+    /* 2. SECTION & CONTENT LAYOUT                     */
+    /* ------------------------------------------------ */
+    section {
+      padding: 60px 30px;
+      max-width: 1080px; /* Slightly wider content area */
+      margin: 40px auto;
+      background: var(--card-bg);
+      border-radius: 12px; /* Tighter radius */
+      box-shadow: var(--shadow-subtle);
+    }
+    section h2 {
+      color: var(--primary-green);
+      border-left: 5px solid var(--secondary-green);
+      padding-left: 15px;
+      margin-bottom: 30px;
+      font-size: 2.1rem; /* Bolder header */
+      font-family: 'Noto Sans Bengali', sans-serif;
+    }
+
+    /* Standard Grid for Cards (Education, News, Events) */
+    .content-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 25px;
+    }
+
+    /* Card Styling */
+    .facility-card, .news-card, .events-card {
+        background: var(--card-bg);
+        padding: 30px;
+        border: 1px solid #eee;
+        border-left: 5px solid var(--secondary-green);
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+        text-decoration: none; /* Ensure links look like cards */
+        color: var(--text-color);
+    }
+    .facility-card:hover, .news-card:hover, .events-card:hover {
+        transform: translateY(-5px); /* Clearer lift */
+        box-shadow: var(--shadow-lift);
+        border-left: 5px solid var(--primary-green); /* Color change on hover */
+    }
+    .facility-card h3, .news-card h3, .events-card h3 {
+        color: var(--primary-green);
+        font-size: 1.4rem;
+        margin-top: 0;
+        font-family: 'Noto Sans Bengali', sans-serif;
+    }
+
+    /* Gallery Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Slightly adjusted min width */
+      gap: 20px;
+    }
+
+    /* Live Video */
+    .live-video iframe {
+      width: 100%;
+      height: 550px; /* Slightly taller */
+      border: none;
+      border-radius: 16px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    /* --- Forms & Buttons --- */
+    .contact-form input, .contact-form textarea {
+      padding: 14px; /* More padding */
+      border-radius: 6px; /* Tighter radius */
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .contact-form input:focus, .contact-form textarea:focus {
+      border-color: var(--primary-green);
+      box-shadow: 0 0 0 3px rgba(47, 143, 78, 0.2); /* Clean focus ring */
+      outline: none;
+    }
+    .contact-form button {
+      background: var(--primary-green);
+      font-family: 'Noto Sans Bengali', sans-serif;
+      font-weight: 600;
+      padding: 15px;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .contact-form button:hover {
+      background: var(--secondary-green);
+      transform: translateY(-2px);
+    }
+
+    /* --- Calendar --- */
+    .calendar table {
+      border-collapse: collapse; /* Cleaner table lines */
+      border-spacing: 0;
+      border: 1px solid #ccc; /* Clean outer border */
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .calendar th, .calendar td {
+      border: 1px solid #e0e0e0;
+      padding: 12px 0;
+    }
+    .calendar th {
+      background-color: var(--primary-green);
+      color: white;
+      font-family: 'Noto Sans Bengali', sans-serif;
+    }
+    .calendar td:hover {
+      background-color: #f0fdf0;
+      font-weight: 600;
+      color: var(--primary-green);
+    }
+
+    /* --- Footer --- */
+    footer {
+      background: #2a3d34;
+      /* ... */
+    }
+    
+    /* --- Scroll to Top Button --- */
+    #scrollToTopBtn {
+      background-color: var(--primary-green);
+      /* ... other styles ... */
+    }
+
+    /* ------------------------------------------------ */
+    /* 3. RESPONSIVE MEDIA QUERIES (Professional)      */
+    /* ------------------------------------------------ */
+    @media (max-width: 1080px) {
+        section {
+            max-width: 90%;
+        }
+    }
+
+    @media (max-width: 768px) {
+        /* Header Scaling for Mobile */
+        header {
+            padding: 80px 15px 60px;
+            background-attachment: scroll; /* Disable parallax on mobile */
+        }
+        header h1 {
+            font-size: 2.8rem;
+        }
+        header p {
+            font-size: 1.2rem;
+        }
+
+        /* Mobile Navigation Setup */
+        .nav-links {
+            /* ... mobile menu styles ... */
+        }
+        
+        /* Layout Stacking */
+        section {
+            padding: 30px 15px;
+        }
+        .content-grid {
+             grid-template-columns: 1fr; /* Single column on mobile */
+        }
+        .facility-card, .news-card, .events-card {
+            padding: 20px;
+        }
+
+        /* Live Video Scaling */
+        .live-video iframe {
+            height: 300px;
+        }
+
+        /* Calendar Responsiveness */
+        .calendar th, .calendar td {
+            padding: 8px 4px;
+            height: 40px;
+            font-size: 0.85rem;
+        }
+        
+        /* Scroll to Top button adjustment */
+        #scrollToTopBtn {
+            right: 15px;
+            bottom: 15px;
+            padding: 12px;
+            font-size: 16px;
+        }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Bolardiyar বলারদিয়ার</h1>
+    <p>আমাদের প্রিয় গ্রাম — প্রকৃতি, ভালোবাসা ও ঐতিহ্যের ঠিকানা</p>
+  </header>
+
+  <nav>
+    <button class="nav-toggle" aria-label="Toggle navigation" onclick="toggleNav()">☰</button>
+    <div class="nav-links">
+        <a href="#about">পরিচিতি</a>
+        <a href="#education">শিক্ষা ও স্বাস্থ্য</a>
+        <a href="#agriculture">কৃষি</a>
+        <a href="#culture">সংস্কৃতি</a>
+        <a href="#gallery">ছবি</a>
+        <a href="#live">লাইভ</a>
+        <a href="#news">নিউজ</a>
+        <a href="#events">ইভেন্ট</a>
+        <a href="#calendar">ক্যালেন্ডার</a>
+        <a href="#contact">যোগাযোগ</a>
+    </div>
+  </nav>
+
+  <section id="about">
+    <h2>গ্রামের পরিচিতি</h2>
+    <p>Bolardiyar (বলারদিয়ার) জামালপুর জেলার সরিষাবাড়ী উপজেলার একটি মনোমুগ্ধকর গ্রাম। বিস্তীর্ণ সবুজ মাঠ, পুকুর, নদী ও নীল আকাশের নিচে এই গ্রামটি যেন শান্তির প্রতীক। গ্রামের মানুষ পরিশ্রমী, আন্তরিক ও সহযোগিতামূলক মনোভাবের অধিকারী। তাদের একতা ও সরলতা বলারদিয়ারকে করে তুলেছে আলাদা এক ভালোবাসার ঠিকানা।</p>
+  </section>
+  
+  <section id="education">
+    <h2>শিক্ষা ও স্বাস্থ্য</h2>
+    <p>শিক্ষা ও স্বাস্থ্য পরিষেবা গ্রামের মানুষের জীবনযাত্রার মানোন্নয়নে বিশেষ ভূমিকা রাখে।</p>
+    <div class="content-grid">
+        <div class="facility-card">
+            <h3>বলারদিয়ার প্রাথমিক বিদ্যালয়</h3>
+            <p>প্রতিষ্ঠা: ১৯৫০ সাল</p>
+            <p>গ্রামের কোমলমতি শিক্ষার্থীদের শিক্ষার আলো বিতরণ করছে যুগের পর যুগ ধরে।</p>
+        </div>
+        <div class="facility-card">
+            <h3>গ্রাম্য স্বাস্থ্য কেন্দ্র</h3>
+            <p>পরিষেবা: প্রাথমিক চিকিৎসা ও টিকাদান</p>
+            <p>সাধারণ স্বাস্থ্য সমস্যাগুলির জন্য নিয়মিত পরামর্শ এবং ঔষধ সরবরাহ করা হয়।</p>
+        </div>
+        <div class="facility-card">
+            <h3>বলারদিয়ার হাই মাদ্রাসা</h3>
+            <p>প্রতিষ্ঠা: ১৯৮৫ সাল</p>
+            <p>এখানে আধুনিক শিক্ষার পাশাপাশি ধর্মীয় শিক্ষার পরিবেশ বিদ্যমান।</p>
+        </div>
+    </div>
+  </section>
+
+  <section id="agriculture">
+    <h2>কৃষি ও পেশা</h2>
+    <p>বলারদিয়ারের অধিকাংশ মানুষ কৃষিনির্ভর। এখানে ধান, পাট, সরিষা, ডাল, ও নানা সবজি উৎপাদন হয়। সাম্প্রতিক বছরগুলোতে জৈব কৃষি ও পরিবেশবান্ধব চাষাবাদ জনপ্রিয় হয়ে উঠছে, যা গ্রামীণ অর্থনীতিকে আরও টেকসই করে তুলছে।</p>
+  </section>
+
+  <section id="culture">
+    <h2>সংস্কৃতি ও ঐতিহ্য</h2>
+    <p>বলারদিয়ারের মানুষ সংস্কৃতিপ্রেমী ও উৎসবমুখর। ঈদ, বাংলা নববর্ষ, নৌকা বাইচ, হালখাতা, এবং গ্রামীণ মেলা এই গ্রামের প্রাণ। এই উৎসবগুলো মানুষের মধ্যে ভালোবাসা, বন্ধন ও ঐক্যের সেতুবন্ধন রচনা করে।</p>
+  </section>
+
+  <section id="gallery">
+    <h2>ছবির গ্যালারি</h2>
+    <div class="gallery-grid">
+      <img src="https://www.shutterstock.com/video/search/rice-field-bangladesh" alt="ধানক্ষেত">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Village_path_in_Bangladesh.jpg" alt="গ্রামীণ পথ">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Bangladesh_river_boats.jpg" alt="নদী ও নৌকা">
+    </div>
+  </section>
+
+  <section id="live">
+    <h2>লাইভ সম্প্রচার</h2>
+    <div class="live-video">
+      <iframe src="https://www.youtube.com/embed/live_stream?channel=UCK4PfQrx-TnaiSjd0Wvdylg" allowfullscreen></iframe>
+    </div>
+  </section>
+
+  <section id="news">
+    <h2>গ্রামের খবর</h2>
+    <div class="content-grid">
+        <article class="news-card">
+          <h3>নতুন কৃষি প্রকল্প শুরু</h3>
+          <p>বলারদিয়ারে জৈব চাষাবাদে নতুন উদ্যোগ গ্রহণ করা হয়েছে। এটি কৃষি অর্থনীতিকে আরও টেকসই করে তুলবে।</p>
+        </article>
+        <article class="news-card">
+          <h3>গ্রাম্য মেলা অনুষ্ঠিত</h3>
+          <p>সম্প্রতি গ্রামে ব্যাপক উৎসাহ-উদ্দীপনার মধ্য দিয়ে সাংস্কৃতিক মেলার আয়োজন করা হয়েছে।</p>
+        </article>
+        <article class="news-card">
+          <h3>নতুন রাস্তা উদ্বোধন</h3>
+          <p>গ্রামের অভ্যন্তরীণ যোগাযোগের সুবিধার্থে একটি নতুন পাকা রাস্তার উদ্বোধন করা হয়েছে।</p>
+        </article>
+    </div>
+  </section>
+
+  <section id="events">
+    <h2>আসন্ন ইভেন্ট</h2>
+    <div class="content-grid">
+        <article class="events-card">
+          <h3>পৌষ সংক্রান্তি উৎসব</h3>
+          <p>তারিখ: ১৪ জানুয়ারি ২০২৬</p>
+          <p>গ্রামীণ ঐতিহ্যবাহী পিঠা উৎসব ও ঘুড়ি প্রতিযোগিতা অনুষ্ঠিত হবে।</p>
+        </article>
+        <article class="events-card">
+          <h3>নদী পিকনিক ও হাট</h3>
+          <p>তারিখ: ৫ ফেব্রুয়ারি ২০২৬</p>
+          <p>পাশের নদীর তীরে একটি বার্ষিক বনভোজন ও ঐতিহ্যবাহী গ্রামীণ হাট বসবে।</p>
+        </article>
+        <article class="events-card">
+          <h3>শিক্ষার্থী সংবর্ধনা</h3>
+          <p>তারিখ: ১০ মার্চ ২০২৬</p>
+          <p>এসএসসি ও এইচএসসি পরীক্ষায় উত্তীর্ণ কৃতি শিক্ষার্থীদের সংবর্ধনা দেওয়া হবে।</p>
+        </article>
+    </div>
+  </section>
+
+  <section id="calendar" class="calendar">
+    <h2>বাংলা ক্যালেন্ডার - ২০২৬</h2>
+    <table>
+      <caption>জানুয়ারি ২০২৬</caption>
+      <thead>
+        <tr><th>রবি</th><th>সোম</th><th>মঙ্গল</th><th>বুধ</th><th>বৃহ</th><th>শুক্র</th><th>শনি</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>১</td><td>২</td><td>৩</td><td>৪</td><td>৫</td><td>৬</td><td>৭</td></tr>
+        <tr><td>৮</td><td>৯</td><td>১০</td><td>১১</td><td>১২</td><td>১৩</td><td>১৪</td></tr>
+        <tr><td>১৫</td><td>১৬</td><td>১৭</td><td>১৮</td><td>১৯</td><td>২০</td><td>২১</td></tr>
+        <tr><td>২২</td><td>২৩</td><td>২৪</td><td>২৫</td><td>২৬</td><td>২৭</td><td>২৮</td></tr>
+        <tr><td>২৯</td><td>৩০</td><td>৩১</td><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="contact" class="contact-form">
+    <h2>যোগাযোগ করুন</h2>
+    <form>
+      <input type="text" placeholder="আপনার নাম" required>
+      <input type="email" placeholder="আপনার ইমেইল" required>
+      <textarea rows="6" placeholder="আপনার বার্তা" required></textarea>
+      <button type="submit">বার্তা পাঠান</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>© ২০২৫ বলারদিয়ার গ্রাম। সর্বস্বত্ব সংরক্ষিত।</p>
+  </footer>
+  
+  <button onclick="topFunction()" id="scrollToTopBtn" title="উপরে যান">↑</button>
+
+  <script>
+    // ----------------------------------
+    // JavaScript for Mobile Menu Toggle
+    // ----------------------------------
+    function toggleNav() {
+        var navLinks = document.querySelector('.nav-links');
+        navLinks.classList.toggle('active');
+    }
+
+    // ----------------------------------
+    // JavaScript for Scroll to Top
+    // ----------------------------------
+    let mybutton = document.getElementById("scrollToTopBtn");
+
+    // When the user scrolls down 300px, show the button
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        mybutton.style.display = "block";
+      } else {
+        mybutton.style.display = "none";
+      }
+    }
+
+    // When the user clicks on the button, scroll to the top
+    function topFunction() {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    }
+  </script>
+</body>
+</html>
